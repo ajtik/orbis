@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Seznam filmů";
+    var movies = ViewData["Movies"] as List<Movie>;
+}
+
+<h1 class="cerveny-text">Seznam filmů</h1>
+<div class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Plákat</th>
+                    <th>Název</th>
+                    <th>Žánr</th>
+                    <th>Popis</th>
+                    <th>Akce</th>
+                </tr>
+                @foreach (Movie movie in movies)
+                    {
+                    <tr>
+                        <td>@movie.Id</td>
+                        <td>
+                            <img src="/upload/@movie.Photo" />
+                        </td>
+                        <td>@movie.Name</td>
+                        <td>@movie.Genre.Name</td>
+                        <td>@movie.Description</td>
+                        <td>
+                            <div class="mb-3">
+                                <a href="#">
+                                    <button class="btn btn-xs btn-warning">Editovat film</button>
+                                </a>
+                            </div>
+                            <div class="mb-3">
+                                <a asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id">
+                                    <button class="btn btn-xs btn-danger">Smazat film</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+            </table>
+        </div>
+    </div>
+</div>

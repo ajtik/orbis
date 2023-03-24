@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Přidat film";
+    var genres = ViewData["genres"] as List<Genre>;
+}
+
+<h1 class="cerveny-text">Přidat film</h1>
+
+<div class="row">
+    <div class="col">
+        <form asp-controller="Movie" asp-action="AddMovie" method="post" enctype="multipart/form-data">
+            <div class="mb-3 mt-3">
+                <label for="name" class="form-label">Název filmu</label>
+                <input type="text" class="form-control" id="name" placeholder="Vložte název" name="name" />
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Plakát</label>
+                <input type="file" class="form-control" name="image" />
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Žánr</label>
+                <select name="category" id="category" class="form-select">
+                    <option>-</option>
+                    @foreach(var genre in genres)
+                    {
+                       <option value="@genre.Id">@genre.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Popis</label>
+                <textarea name="description" id="description" class="form-control" style="min-height: 100px;"></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="btn btn-primary" value="Přidat film" />
+            </div>
+        </form>
+    </div>
+</div>
