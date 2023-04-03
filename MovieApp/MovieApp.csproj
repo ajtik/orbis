@@ -10,6 +10,8 @@
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Context\" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite.Core" />
+    <None Remove="Models\Repositories\" />
+    <None Remove="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
@@ -21,5 +23,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Context\" />
+    <Folder Include="Models\Repositories\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\upload\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\upload\" />
   </ItemGroup>
 </Project>

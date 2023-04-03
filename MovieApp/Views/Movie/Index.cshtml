@@ -1,7 +1,18 @@
 ﻿@{
+    // nastavení titulku stránky, použije se v _Layout.cshtml
     ViewData["Title"] = "Seznam filmů";
+    // je třeba pohledu říct, jakého datového type ViewDaata["Movies"] je 
     var movies = ViewData["Movies"] as List<Movie>;
 }
+
+@* 
+
+Šablona pro výpis filmů z databáze.
+
+Pro správnou syntaxi: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-6.0
+Tohle je pouze kousek kódu podstránky. Šablona rozšiřuje rozvržení stránky v Views/Shared/_Layout.cshtml
+
+ *@
 
 <h1 class="cerveny-text">Seznam filmů</h1>
 <div class="row">
@@ -16,29 +27,31 @@
                     <th>Popis</th>
                     <th>Akce</th>
                 </tr>
+                @* Foreach cyklus pro vypsání všech filmů, které jsme našli v databázi. *@
                 @foreach (Movie movie in movies)
                     {
-                    <tr>
-                        <td>@movie.Id</td>
-                        <td>
-                            <img src="/upload/@movie.Photo" />
-                        </td>
-                        <td>@movie.Name</td>
-                        <td>@movie.Genre.Name</td>
-                        <td>@movie.Description</td>
-                        <td>
-                            <div class="mb-3">
-                                <a href="#">
-                                    <button class="btn btn-xs btn-warning">Editovat film</button>
-                                </a>
-                            </div>
-                            <div class="mb-3">
-                                <a asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id">
-                                    <button class="btn btn-xs btn-danger">Smazat film</button>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <!-- Přístup k jednotlivým property třídy Movie -->
+                            <td>@movie.Id</td>
+                            <td>
+                                <img src="/upload/@movie.Photo"/>
+                            </td>
+                            <td>@movie.Name</td>
+                            <td>@movie.Genre.Name</td>
+                            <td>@movie.Description</td>
+                            <td>
+                                <div class="mb-3">
+                                    <a href="#">
+                                        <button class="btn btn-xs btn-warning">Editovat film</button>
+                                    </a>
+                                </div>
+                                <div class="mb-3">
+                                    <a asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id">
+                                        <button class="btn btn-xs btn-danger">Smazat film</button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     }
             </table>
         </div>

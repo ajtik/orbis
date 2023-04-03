@@ -10,6 +10,9 @@ namespace MovieApp.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // automaticky vygenerovaná databázová migrace
+            // pomocí CLI příkazu se porovná aktuální struktura databáze s entitama ve složce Models/ a rozdíly vygeneruje sem
+            // abychom po spuštění mohli mít aktuální strukturu
             migrationBuilder.CreateTable(
                 name: "Genre",
                 columns: table => new

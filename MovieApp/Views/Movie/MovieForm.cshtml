@@ -1,37 +1,80 @@
 ﻿@{
     ViewData["Title"] = "Přidat film";
     var genres = ViewData["genres"] as List<Genre>;
+    var movie = ViewData.ContainsKey("Movie") ? ViewData["Movie"] as Movie : null;
 }
 
-<h1 class="cerveny-text">Přidat film</h1>
+<h1 class="cerveny-text">
+    @if (movie != null)
+    {
+        <text>Editovat film</text>
+    }
+    else
+    {
+        <text>Přidat film</text>
+    }
+</h1>
+
+@* 
+
+Šablona pro editaci a vytváření filmu - prvky jsou stejné, tudíž je možno použít pro obě akce,
+vyhneme se tak redundanci. Pro správnou syntaxi: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-6.0
+
+Tohle je pouze kousek kódu podstránky pro editaci/vytváření filmu. Šablona rozšiřuje rozvržení stránky v Views/Shared/_Layout.cshtml
+
+ *@
 
 <div class="row">
     <div class="col">
-        <form asp-controller="Movie" asp-action="AddMovie" method="post" enctype="multipart/form-data">
+        <form asp-controller="Movie" asp-action="@(movie == null ? "AddMovie" : "EditMovie")" method="post" enctype="multipart/form-data">
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Název filmu</label>
-                <input type="text" class="form-control" id="name" placeholder="Vložte název" name="name" />
+                <input type="text" class="form-control" id="name" placeholder="Vložte název" name="name"
+                       @if (movie != null)
+                       {
+                           <text> value="@movie.Name" </text>
+                       }/>
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Plakát</label>
-                <input type="file" class="form-control" name="image" />
+                <input type="file" class="form-control" name="image"/>
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">Žánr</label>
-                <select name="category" id="category" class="form-select">
+                <select name="category" id="category" class="form-select" asp-for"@movie.Genre.Id">
                     <option>-</option>
-                    @foreach(var genre in genres)
+                    @foreach (var genre in genres)
                     {
-                       <option value="@genre.Id">@genre.Name</option>
+                        if (movie != null && genre.Id == movie.Genre.Id)
+                        {
+                            <option selected value="@genre.Id">@genre.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@genre.Id">@genre.Name</option>
+                        }
                     }
                 </select>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Popis</label>
-                <textarea name="description" id="description" class="form-control" style="min-height: 100px;"></textarea>
+                <textarea name="description" id="description" class="form-control" style="min-height: 100px;">
+                    @if (movie != null)
+                    {
+                        @movie.Description
+                    }
+                </textarea>
             </div>
             <div class="mb-3">
-                <input type="submit" class="btn btn-primary" value="Přidat film" />
+                <input type="submit" class="btn btn-primary"
+                       @if (movie != null)
+                       {
+                           <text> value="Aktualizovat film" </text>
+                       }
+                       else
+                       {
+                           <text> Přidat film</text>
+                       }/>
             </div>
         </form>
     </div>

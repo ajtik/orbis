@@ -1,6 +1,7 @@
 ﻿using System;
 namespace MovieApp.Models
 {
+	// třída reprezentující film
 	public class Movie
 	{
 		public int Id { get; set; }

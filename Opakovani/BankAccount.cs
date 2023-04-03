@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Opakovani.OOP
 {
-	interface IBankAccount
+	public interface IBankAccount
 	{
 		IBankAccount Deposit(double value);
 		IBankAccount Withdraw(double value);
